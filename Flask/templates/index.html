@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Fake News Detection</h1>
+        <form action="/" method="POST">
+            <textarea name="txt" rows="4" placeholder="พิมพ์ข้อความที่ต้องการตรวจสอบ..."></textarea>
+            <button type="submit">ตรวจสอบข่าว</button>
+        </form>
+        
+        {% if request.form['txt'] %}
+        <div class="result">
+            <h3>ข้อความที่ป้อน:</h3>
+            <p class="news-text">"{{ request.form['txt'] }}"</p>
+
+            <h3>ผลลัพธ์:</h3>
+            <p class="{% if result == 0 %}fake{% else %}true{% endif %}">
+                {% if result == 0 %}
+                    ❌ ข่าวปลอม
+                {% else %}
+                    ✅ ข่าวจริง
+                {% endif %}
+            </p>
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
